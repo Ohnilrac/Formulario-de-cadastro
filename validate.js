@@ -11,72 +11,78 @@ form.addEventListener('submit', e => {
 })
 
 function checkInputs() {
-  const usernameValue = username.value;
-  const passwordValue = password.value;
-  const passwordConfirmationValue = passwordConfirmation.value;
-  const emailValue = email.value;
+  const usernameValue = username.value
+  const passwordValue = password.value
+  const passwordConfirmationValue = passwordConfirmation.value
+  const emailValue = email.value
 
-  if(usernameValue ===""){
+  if (usernameValue === '') {
     setError(username, 'O nome é obrigatório.')
-  } else{
+  } else {
     setSuccess(username)
   }
 
-  if(emailValue ===""){
+  if (emailValue === '') {
     setError(email, 'O Email é obrigatório.')
-  } else{
+  } else {
     setSuccess(email)
   }
 
-  if(passwordValue ===""){
+  if (passwordValue === '') {
     setError(password, 'É necessário uma senha.')
-  } else if(passwordValue.length < 8){
+  } else if (passwordValue.length < 8) {
     setError(password, 'A senha precisa ter no mínimo 8 caracteres.')
-  }else{
+  } else {
     setSuccess(password)
   }
 
-  if(passwordConfirmationValue ===""){
+  if (passwordConfirmationValue === '') {
     setError(passwordConfirmation, 'É necessário confirmar a senha.')
-  } else if(passwordConfirmationValue !== passwordValue){
+  } else if (passwordConfirmationValue !== passwordValue) {
     setError(passwordConfirmation, 'As senhas não conferem.')
-  }else{
+  } else {
     setSuccess(passwordConfirmation)
   }
 
-
-  const formControls = form.querySelectorAll('.form-control'); 
-  const formIsValid = [...formControls].every((formControl) => {
-    return formControl.className === 'form-control success';
+  const formControls = form.querySelectorAll('.form-control')
+  const formIsValid = [...formControls].every(formControl => {
+    return formControl.className === 'form-control success'
   })
 
-  if(formIsValid){
+  if (formIsValid) {
     confirmation()
   }
 }
 
 function setError(input, message) {
-  const formControl = input.parentElement;
-  const small = formControl.querySelector("small")
+  const formControl = input.parentElement
+  const small = formControl.querySelector('small')
 
-  small.innerText = message;
-  formControl.className = "form-control error";
+  small.innerText = message
+  formControl.className = 'form-control error'
 }
 
 function setSuccess(input) {
-  const formControl = input.parentElement;
+  const formControl = input.parentElement
 
-  formControl.className = "form-control success";
+  formControl.className = 'form-control success'
 }
 
 function confirmation() {
   const container = document.getElementById('modal')
 
-  container.style.visibility = "visible";
+  container.style.visibility = 'visible'
 }
 
 function closeModal() {
   const closeModal = document.getElementById('modal')
-  
-  closeModal.style.visibility = "hidden";
+
+  closeModal.style.visibility = 'hidden'
+
+  if (username.value !== '') {
+    username.value = '';
+    password.value = '';
+    email.value = '';
+    passwordConfirmation.value = '';
+  }
 }
